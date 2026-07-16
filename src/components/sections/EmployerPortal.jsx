@@ -18,6 +18,9 @@ const EMPTY_JOB = {
   country: 'Saudi Arabia',
   countryCode: 'sa',
   salaryNote: '',
+  requirements: '',
+  benefits: '',
+  details: '',
 };
 
 const TRADE_OPTIONS = [
@@ -37,6 +40,7 @@ export default function EmployerPortal() {
   const [jobs, setJobs] = useState([]);
   const [draft, setDraft] = useState(EMPTY_JOB);
   const [busy, setBusy] = useState(false);
+  const [postedMsg, setPostedMsg] = useState('');
 
   useEffect(() => subscribeJobs(setJobs), []);
 
@@ -119,9 +123,13 @@ export default function EmployerPortal() {
     e.preventDefault();
     if (!draft.title.trim()) return;
     setBusy(true);
+    setPostedMsg('');
     try {
-      await addJob(draft);
+      const created = await addJob(draft);
       setDraft(EMPTY_JOB);
+      setPostedMsg(
+        `"${created.title}" is live on Open Positions. Candidates can see requirements and benefits now.`
+      );
     } finally {
       setBusy(false);
     }
@@ -135,7 +143,8 @@ export default function EmployerPortal() {
             <p className="employer__eyebrow">Employer desk</p>
             <h2 className="employer__title">Post & manage job openings</h2>
             <p className="employer__sub">
-              Shared client login — add a role, then delete or mark it complete when filled.
+              Shared client login — add a role with requirements and benefits, then delete or mark
+              complete when filled.
             </p>
           </div>
           {authed && (
@@ -165,7 +174,7 @@ export default function EmployerPortal() {
             <p className="employer__hint">
               {isFirebaseConfigured()
                 ? 'Connected to Firebase when credentials are configured.'
-                : 'Local mode — jobs save in this browser until Firebase is connected.'}
+                : 'Jobs save in this browser and appear on Open Positions immediately. For sharing across phones/PCs, connect Firebase (see EMPLOYER_PORTAL.md).'}
             </p>
           </form>
         ) : (
@@ -214,9 +223,51 @@ export default function EmployerPortal() {
                   />
                 </label>
               </div>
+
+              <label className="employer__field employer__field--full">
+                <span>About this role</span>
+                <textarea
+                  rows={2}
+                  value={draft.details}
+                  onChange={(e) => setDraft((d) => ({ ...d, details: e.target.value }))}
+                  placeholder="Short summary of the job for candidates"
+                />
+              </label>
+
+              <div className="employer__grid">
+                <label className="employer__field">
+                  <span>Requirements</span>
+                  <textarea
+                    rows={4}
+                    value={draft.requirements}
+                    onChange={(e) => setDraft((d) => ({ ...d, requirements: e.target.value }))}
+                    placeholder={'One per line, e.g.\nValid licence\n3+ years experience\nAge 25–45'}
+                    required
+                  />
+                </label>
+                <label className="employer__field">
+                  <span>Benefits for candidate</span>
+                  <textarea
+                    rows={4}
+                    value={draft.benefits}
+                    onChange={(e) => setDraft((d) => ({ ...d, benefits: e.target.value }))}
+                    placeholder={'One per line, e.g.\nAccommodation\nFood\nOvertime'}
+                    required
+                  />
+                </label>
+              </div>
+
               <Button type="submit" variant="primary" size="md" disabled={busy}>
                 Post job
               </Button>
+              {postedMsg && (
+                <p className="employer__success" role="status">
+                  {postedMsg}{' '}
+                  <Button to="/positions" variant="text" size="sm">
+                    View positions
+                  </Button>
+                </p>
+              )}
             </form>
 
             <div className="employer__list">
@@ -230,7 +281,7 @@ export default function EmployerPortal() {
                       <div>
                         <p className="employer__job-title">
                           {job.title}
-                          {!job.active && (
+                          {job.active === false && (
                             <span className="employer__badge">Completed</span>
                           )}
                         </p>
@@ -240,17 +291,11 @@ export default function EmployerPortal() {
                       </div>
                       <div className="employer__job-actions">
                         {job.active !== false ? (
-                          <button
-                            type="button"
-                            onClick={() => setJobActive(job.id, false)}
-                          >
+                          <button type="button" onClick={() => setJobActive(job.id, false)}>
                             Mark complete
                           </button>
                         ) : (
-                          <button
-                            type="button"
-                            onClick={() => setJobActive(job.id, true)}
-                          >
+                          <button type="button" onClick={() => setJobActive(job.id, true)}>
                             Reopen
                           </button>
                         )}

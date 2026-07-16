@@ -1,42 +1,32 @@
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import Hero from './components/sections/Hero';
-import TrustStrip from './components/sections/TrustStrip';
-import WhyUs from './components/sections/WhyUs';
-import Services from './components/sections/Services';
-import Process from './components/sections/Process';
-import Trades from './components/sections/Trades';
-import OpenPositions from './components/sections/OpenPositions';
-import Stats from './components/sections/Stats';
-import Testimonials from './components/sections/Testimonials';
-import JobsPortal from './components/sections/JobsPortal';
-import Contact from './components/sections/Contact';
-import EmployerPortal from './components/sections/EmployerPortal';
-import FloatingWhatsApp from './components/ui/FloatingWhatsApp';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import MainLayout from './components/layout/MainLayout';
+import HomePage from './pages/HomePage';
+import WhyUsPage from './pages/WhyUsPage';
+import ServicesPage from './pages/ServicesPage';
+import TradesPage from './pages/TradesPage';
+import PositionsPage from './pages/PositionsPage';
+import ProcessPage from './pages/ProcessPage';
+import ContactPage from './pages/ContactPage';
+import ApplyPage from './pages/ApplyPage';
+import EmployerPage from './pages/EmployerPage';
 
 function App() {
   return (
-    <>
-      <Header />
-
-      <main>
-        <Hero />
-        <TrustStrip />
-        <WhyUs />
-        <Services />
-        <Process />
-        <Trades />
-        <OpenPositions />
-        <Stats />
-        <Testimonials />
-        <JobsPortal />
-        <Contact />
-        <EmployerPortal />
-      </main>
-
-      <Footer />
-      <FloatingWhatsApp />
-    </>
+    <HashRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="why-us" element={<WhyUsPage />} />
+          <Route path="services" element={<ServicesPage />} />
+          <Route path="trades" element={<TradesPage />} />
+          <Route path="positions" element={<PositionsPage />} />
+          <Route path="how-it-works" element={<ProcessPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="apply" element={<ApplyPage />} />
+          <Route path="employer" element={<EmployerPage />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   );
 }
 

@@ -2,14 +2,19 @@
 
 Clients post and delete Gulf job openings at `#employer-portal`.
 
-## Quick start (works today)
+## Client link
 
-1. Scroll to **Employer login** in the footer (or open `/#employer-portal`).
-2. Enter the shared password: the value of `VITE_EMPLOYER_PASSWORD` (default matches what you provided).
-3. Add jobs (title, trade, country, salary note).
-4. Mark complete or delete when filled.
+Share this with employers:
 
-Without Firebase, jobs are stored in **this browser’s localStorage** so you can demo immediately. For multi-device sync across clients, connect Firebase below.
+**`https://YOUR-SITE/#/employer`**
+
+Examples:
+- Local: `http://localhost:5173/#/employer`
+- GitHub Pages: `https://isajidkhan00-sys.github.io/golden-route-website/#/employer`
+
+Password: value of `VITE_EMPLOYER_PASSWORD` (default `Salaaroutsourcing@00`)
+
+Posted jobs appear on **`/#/positions`** with requirements and benefits.
 
 ## Firebase (recommended for live client use)
 

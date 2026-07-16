@@ -4,17 +4,19 @@ import Button from '../ui/Button';
 import Icon from '../ui/Icon';
 import { siteConfig } from '../../data/siteConfig';
 
-export default function Contact() {
+export default function Contact({ showHeading = true }) {
   return (
     <section className="contact section" id="contact">
       <div className="container contact__grid">
         <div className="contact__info">
-          <SectionHeading
-            eyebrow="Contact"
-            align="left"
-            title="Visit or message our Islamabad desk"
-            description="Applications go through the job portal. Use these channels for office visits, employer inquiries, or quick WhatsApp questions."
-          />
+          {showHeading && (
+            <SectionHeading
+              eyebrow="Contact"
+              align="left"
+              title="Visit or message our Islamabad desk"
+              description="Applications go through the job portal. Use these channels for office visits, employer inquiries, or quick WhatsApp questions."
+            />
+          )}
 
           <div className="contact__details">
             <a
@@ -69,7 +71,7 @@ export default function Contact() {
             Use the job portal for passport details, experience, CV and passport photo.
             That is how we confirm your application.
           </p>
-          <Button href="#jobs-portal" variant="primary" size="lg" icon="arrow-right">
+          <Button to="/apply" variant="primary" size="lg" icon="arrow-right">
             Go to Job Portal
           </Button>
           <a

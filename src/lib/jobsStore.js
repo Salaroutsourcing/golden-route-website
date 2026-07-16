@@ -1,11 +1,11 @@
 // ==========================================================================
-// Jobs store — Firestore when configured, otherwise localStorage + seed data.
+// Jobs store — shared in-memory listeners + localStorage (Firebase optional).
 // ==========================================================================
 
 import { seedJobs } from '../data/jobs';
 
 const STORAGE_KEY = 'golden-route-jobs';
-const EVENT_NAME = 'golden-route-jobs-updated';
+const listeners = new Set();
 
 function isFirebaseConfigured() {
   return Boolean(
@@ -16,17 +16,31 @@ function isFirebaseConfigured() {
 function readLocalJobs() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
   } catch {
     /* ignore */
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(seedJobs));
-  return [...seedJobs];
+  const seeded = seedJobs.map((j) => ({ ...j }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
+  return seeded;
+}
+
+function notifyAll(jobs) {
+  listeners.forEach((fn) => {
+    try {
+      fn(jobs);
+    } catch {
+      /* ignore subscriber errors */
+    }
+  });
 }
 
 function writeLocalJobs(jobs) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
-  window.dispatchEvent(new CustomEvent(EVENT_NAME));
+  notifyAll(jobs);
 }
 
 async function getFirestoreApi() {
@@ -39,18 +53,21 @@ async function getFirestoreApi() {
 
 /** Subscribe to jobs. Returns unsubscribe fn. */
 export function subscribeJobs(onChange) {
+  listeners.add(onChange);
+
   if (!isFirebaseConfigured()) {
-    const emit = () => onChange(readLocalJobs());
-    emit();
-    window.addEventListener(EVENT_NAME, emit);
-    window.addEventListener('storage', emit);
+    onChange(readLocalJobs());
+    const onStorage = (e) => {
+      if (e.key === STORAGE_KEY || e.key === null) onChange(readLocalJobs());
+    };
+    window.addEventListener('storage', onStorage);
     return () => {
-      window.removeEventListener(EVENT_NAME, emit);
-      window.removeEventListener('storage', emit);
+      listeners.delete(onChange);
+      window.removeEventListener('storage', onStorage);
     };
   }
 
-  let unsub = () => {};
+  let unsubFs = () => {};
   let cancelled = false;
 
   getFirestoreApi()
@@ -60,10 +77,11 @@ export function subscribeJobs(onChange) {
         return;
       }
       const q = query(collection(db, 'jobs'), orderBy('createdAt', 'desc'));
-      unsub = onSnapshot(
+      unsubFs = onSnapshot(
         q,
         (snap) => {
-          onChange(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+          const jobs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+          notifyAll(jobs);
         },
         () => onChange(readLocalJobs())
       );
@@ -72,17 +90,21 @@ export function subscribeJobs(onChange) {
 
   return () => {
     cancelled = true;
-    unsub();
+    listeners.delete(onChange);
+    unsubFs();
   };
 }
 
 export async function addJob(job) {
   const payload = {
-    title: job.title,
+    title: job.title.trim(),
     trade: job.trade,
     country: job.country,
     countryCode: job.countryCode,
-    salaryNote: job.salaryNote || '',
+    salaryNote: (job.salaryNote || '').trim(),
+    requirements: (job.requirements || '').trim(),
+    benefits: (job.benefits || '').trim(),
+    details: (job.details || '').trim(),
     active: true,
     createdAt: Date.now(),
   };

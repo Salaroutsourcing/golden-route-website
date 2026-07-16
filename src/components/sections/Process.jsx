@@ -3,17 +3,19 @@ import SectionHeading from '../ui/SectionHeading';
 import { processSteps } from '../../data/processSteps';
 import { useReveal } from '../../hooks/useReveal';
 
-export default function Process() {
+export default function Process({ showHeading = true }) {
   const { ref, visible } = useReveal();
 
   return (
     <section className="process section" id="process">
       <div className="container">
-        <SectionHeading
-          eyebrow="How it works"
-          title="Four steps from apply to deployment"
-          description="A clear sequence — apply, screening, visa, then deployment to your Gulf workplace."
-        />
+        {showHeading && (
+          <SectionHeading
+            eyebrow="How it works"
+            title="Four steps from apply to deployment"
+            description="A clear sequence — apply, screening, visa, then deployment to your Gulf workplace."
+          />
+        )}
 
         <ol
           ref={ref}

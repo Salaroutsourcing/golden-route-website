@@ -1,8 +1,3 @@
-// ==========================================================================
-// SAMPLE / FALLBACK OPEN POSITIONS — used when Firebase is not configured.
-// Employer portal can also persist edits to localStorage.
-// ==========================================================================
-
 export const seedJobs = [
   {
     id: 'job-driver-ksa',
@@ -11,6 +6,10 @@ export const seedJobs = [
     country: 'Saudi Arabia',
     countryCode: 'sa',
     salaryNote: 'Competitive Gulf package + accommodation',
+    requirements:
+      'Valid heavy driving licence, 3+ years experience, age 25–45, clean driving record.',
+    benefits: 'Accommodation, transport to site, overtime as per company policy.',
+    details: 'Long-haul and site logistics for verified Saudi employers.',
     active: true,
     createdAt: Date.now() - 86400000 * 3,
   },
@@ -21,6 +20,9 @@ export const seedJobs = [
     country: 'UAE',
     countryCode: 'ae',
     salaryNote: 'Tax-free salary · overtime available',
+    requirements: '6G certification preferred, UAE experience a plus, safety induction ready.',
+    benefits: 'Tax-free pay, overtime, site transport.',
+    details: 'Structural and pipe welding on active construction projects.',
     active: true,
     createdAt: Date.now() - 86400000 * 5,
   },
@@ -31,6 +33,9 @@ export const seedJobs = [
     country: 'Qatar',
     countryCode: 'qa',
     salaryNote: 'Project-based · food & lodging',
+    requirements: '2+ years masonry experience, able to work at height, basic English helpful.',
+    benefits: 'Food, lodging, medical cover as per contract.',
+    details: 'Block work and finishing on residential / commercial sites.',
     active: true,
     createdAt: Date.now() - 86400000 * 2,
   },
@@ -41,6 +46,9 @@ export const seedJobs = [
     country: 'Oman',
     countryCode: 'om',
     salaryNote: 'Rotational roster · HSE certified preferred',
+    requirements: 'Basic HSE awareness, physically fit, willing to work rotational roster.',
+    benefits: 'Camp accommodation, meals, rotation leave.',
+    details: 'Field support on oil & gas sites for a verified Oman operator.',
     active: true,
     createdAt: Date.now() - 86400000 * 7,
   },
@@ -51,6 +59,9 @@ export const seedJobs = [
     country: 'Kuwait',
     countryCode: 'kw',
     salaryNote: 'Plant maintenance · overtime',
+    requirements: 'Industrial electrical experience, able to read schematics, trade certificate.',
+    benefits: 'Overtime, transport, accommodation.',
+    details: 'Plant and building maintenance for an industrial employer in Kuwait.',
     active: true,
     createdAt: Date.now() - 86400000 * 1,
   },
@@ -61,6 +72,9 @@ export const seedJobs = [
     country: 'Bahrain',
     countryCode: 'bh',
     salaryNote: 'Staff accommodation included',
+    requirements: 'Kitchen experience, food hygiene awareness, flexible shifts.',
+    benefits: 'Staff accommodation, meals on duty.',
+    details: 'Hotel kitchen and pantry roles with a Bahrain hospitality group.',
     active: true,
     createdAt: Date.now() - 86400000 * 4,
   },

@@ -20,6 +20,10 @@
   box-shadow: var(--shadow-md);
 }
 
+.positions__card--open {
+  border-color: var(--desert-sand);
+}
+
 .positions__top {
   display: flex;
   align-items: center;
@@ -55,8 +59,51 @@
 .positions__salary {
   font-size: var(--fs-xs);
   color: var(--text-muted);
+}
+
+.positions__toggle {
+  align-self: flex-start;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--flag-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+.positions__details {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.positions__block h4 {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brass-dark);
   margin-bottom: var(--space-2);
-  flex: 1;
+}
+
+.positions__block p,
+.positions__block li,
+.positions__no-detail {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.positions__block ul {
+  list-style: disc;
+  padding-inline-start: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .positions__empty {
@@ -67,6 +114,12 @@
   padding: var(--space-10);
   background: var(--surface-raised);
   border: 1px dashed var(--border-default);
+}
+
+.positions__more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-8);
 }
 
 @media (max-width: 900px) {

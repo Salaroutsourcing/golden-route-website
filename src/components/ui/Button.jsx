@@ -1,16 +1,13 @@
+import { Link } from 'react-router-dom';
 import './Button.css';
 import Icon from './Icon';
-
-// ==========================================================================
-// BUTTON — variants: primary (gold), secondary (navy outline), ghost (light)
-// Renders as <a> if href is given, otherwise <button>.
-// ==========================================================================
 
 export default function Button({
   children,
   variant = 'primary',
   size = 'md',
   href,
+  to,
   onClick,
   icon,
   type = 'button',
@@ -26,6 +23,14 @@ export default function Button({
       {icon && <Icon name={icon} size={18} />}
     </>
   );
+
+  if (to) {
+    return (
+      <Link to={to} className={classes} onClick={onClick} {...rest}>
+        {content}
+      </Link>
+    );
+  }
 
   if (href) {
     return (

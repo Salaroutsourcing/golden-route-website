@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Footer.css';
 import Logo from '../ui/Logo';
 import Icon from '../ui/Icon';
@@ -25,7 +26,7 @@ export default function Footer() {
           <ul>
             {services.slice(0, 5).map((s) => (
               <li key={s.id}>
-                <a href="#services">{s.title}</a>
+                <Link to="/services">{s.title}</Link>
               </li>
             ))}
           </ul>
@@ -34,11 +35,21 @@ export default function Footer() {
         <div className="footer__col">
           <h3 className="footer__heading">Quick links</h3>
           <ul>
-            <li><a href="#positions">Open positions</a></li>
-            <li><a href="#process">How it works</a></li>
-            <li><a href="#jobs-portal">Job portal</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#employer-portal">Employer login</a></li>
+            <li>
+              <Link to="/positions">Open positions</Link>
+            </li>
+            <li>
+              <Link to="/how-it-works">How it works</Link>
+            </li>
+            <li>
+              <Link to="/apply">Job portal</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link to="/employer">Employer login</Link>
+            </li>
           </ul>
         </div>
 

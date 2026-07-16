@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import './Header.css';
 import Logo from '../ui/Logo';
 import Button from '../ui/Button';
@@ -6,12 +7,12 @@ import Icon from '../ui/Icon';
 import { siteConfig } from '../../data/siteConfig';
 
 const NAV_LINKS = [
-  { label: 'Why Us', href: '#why-us' },
-  { label: 'Services', href: '#services' },
-  { label: 'Trades', href: '#workforce' },
-  { label: 'Positions', href: '#positions' },
-  { label: 'How It Works', href: '#process' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Why Us', to: '/why-us' },
+  { label: 'Services', to: '/services' },
+  { label: 'Trades', to: '/trades' },
+  { label: 'Positions', to: '/positions' },
+  { label: 'How It Works', to: '/how-it-works' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Header() {
@@ -33,15 +34,21 @@ export default function Header() {
   return (
     <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
       <div className="container header__inner">
-        <a href="#top" className="header__logo-link" aria-label="Golden Route — home">
+        <Link to="/" className="header__logo-link" aria-label="Golden Route — home">
           <Logo size={isScrolled ? 36 : 42} />
-        </a>
+        </Link>
 
         <nav className="header__nav" aria-label="Primary">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="header__nav-link">
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                `header__nav-link${isActive ? ' header__nav-link--active' : ''}`
+              }
+            >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
@@ -53,7 +60,7 @@ export default function Header() {
             <Icon name="phone" size={16} />
             <span>{siteConfig.contact.phones[0].number}</span>
           </a>
-          <Button href="#jobs-portal" variant="primary" size="sm">
+          <Button to="/apply" variant="primary" size="sm">
             Apply Now
           </Button>
         </div>
@@ -75,14 +82,14 @@ export default function Header() {
       >
         <nav aria-label="Mobile">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <NavLink
+              key={link.to}
+              to={link.to}
               onClick={handleLinkClick}
               className="header__mobile-link"
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
         <div className="header__mobile-footer">
@@ -94,7 +101,7 @@ export default function Header() {
             {siteConfig.contact.phones[0].number}
           </a>
           <Button
-            href="#jobs-portal"
+            to="/apply"
             variant="primary"
             size="lg"
             onClick={handleLinkClick}

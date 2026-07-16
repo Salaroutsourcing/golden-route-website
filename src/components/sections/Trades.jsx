@@ -3,17 +3,19 @@ import SectionHeading from '../ui/SectionHeading';
 import { trades } from '../../data/trades';
 import { useReveal } from '../../hooks/useReveal';
 
-export default function Trades() {
+export default function Trades({ showHeading = true }) {
   const { ref, visible } = useReveal();
 
   return (
     <section className="trades section" id="workforce">
       <div className="container">
-        <SectionHeading
-          eyebrow="Trades we place"
-          title="Drivers, construction, oil & gas — and every skilled trade in between"
-          description="We recruit for transportation, construction sites, energy projects, electrical work, welding and hospitality across the Gulf."
-        />
+        {showHeading && (
+          <SectionHeading
+            eyebrow="Trades we place"
+            title="Drivers, construction, oil & gas — and every skilled trade in between"
+            description="We recruit for transportation, construction sites, energy projects, electrical work, welding and hospitality across the Gulf."
+          />
+        )}
 
         <div
           ref={ref}

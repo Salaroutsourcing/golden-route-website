@@ -59,18 +59,39 @@
 }
 
 .employer__field input,
-.employer__field select {
+.employer__field select,
+.employer__field textarea {
   padding: var(--space-3) var(--space-4);
   border: 1.5px solid var(--border-default);
   border-radius: var(--radius-sm);
   font-weight: 400;
   background: var(--white);
+  font-family: inherit;
+  resize: vertical;
 }
 
 .employer__field input:focus,
-.employer__field select:focus {
+.employer__field select:focus,
+.employer__field textarea:focus {
   outline: none;
   border-color: var(--flag-green);
+}
+
+.employer__field--full {
+  margin-bottom: var(--space-4);
+}
+
+.employer__success {
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--palm);
+  background: var(--flag-green-soft);
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: 3px solid var(--flag-green);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .employer__error {

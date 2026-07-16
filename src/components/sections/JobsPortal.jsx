@@ -16,7 +16,7 @@ const INITIAL = {
   photo: null,
 };
 
-export default function JobsPortal() {
+export default function JobsPortal({ showHeading = true }) {
   const [form, setForm] = useState(INITIAL);
   const [status, setStatus] = useState('');
 
@@ -40,11 +40,13 @@ export default function JobsPortal() {
   return (
     <section className="jobs-portal section" id="jobs-portal">
       <div className="container">
-        <SectionHeading
-          eyebrow="Job portal"
-          title="Apply for Gulf placements"
-          description="Fill in your details below, then complete the official form — including CV and passport photo uploads — to confirm your application."
-        />
+        {showHeading && (
+          <SectionHeading
+            eyebrow="Job portal"
+            title="Apply for Gulf placements"
+            description="Fill in your details below, then complete the official form — including CV and passport photo uploads — to confirm your application."
+          />
+        )}
 
         <div className="jobs-portal__layout">
           <form className="jobs-portal__form" onSubmit={onSubmit} noValidate>

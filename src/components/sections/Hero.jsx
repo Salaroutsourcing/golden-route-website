@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Hero.css';
 import Button from '../ui/Button';
 import Flag from '../ui/Flag';
@@ -10,9 +11,9 @@ export default function Hero() {
         <img
           className="hero__img"
           src="/images/hero-saudi.jpg"
-          alt=""
-          width={1920}
-          height={1080}
+          alt="Riyadh skyline with Kingdom Centre Tower at dusk, Saudi Arabia"
+          width={1536}
+          height={1024}
           fetchPriority="high"
           decoding="async"
         />
@@ -26,7 +27,7 @@ export default function Hero() {
           Golden Route places skilled Pakistani workers with licensed employers in Saudi Arabia,
           UAE, Qatar, Kuwait, Bahrain and Oman.
         </p>
-        <Button href="#jobs-portal" variant="primary" size="lg" icon="arrow-right">
+        <Button to="/apply" variant="primary" size="lg" icon="arrow-right">
           Apply Now
         </Button>
       </div>
@@ -35,20 +36,20 @@ export default function Hero() {
         <div className="container hero__corridor-inner">
           <p className="hero__welcome">
             <span lang="en">Welcome</span>
-            <span className="hero__welcome-sep" aria-hidden="true">·</span>
-            <span lang="ar" dir="rtl">أهلاً وسهلاً</span>
+            <span className="hero__welcome-sep" aria-hidden="true">
+              ·
+            </span>
+            <span lang="ar" dir="rtl">
+              أهلاً وسهلاً
+            </span>
           </p>
           <ul className="hero__flags" aria-label="Gulf destination countries">
             {siteConfig.gulfCountries.map((c) => (
               <li key={c.code}>
-                <a
-                  className="hero__flag"
-                  href={`#positions`}
-                  title={`Open positions in ${c.name}`}
-                >
+                <Link className="hero__flag" to="/positions" title={`Open positions in ${c.name}`}>
                   <Flag code={c.code} name={c.name} className="hero__flag-icon" />
                   <span className="hero__flag-name">{c.name}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

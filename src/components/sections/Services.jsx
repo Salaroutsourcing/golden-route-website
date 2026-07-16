@@ -4,17 +4,19 @@ import Icon from '../ui/Icon';
 import { services } from '../../data/services';
 import { useReveal } from '../../hooks/useReveal';
 
-export default function Services() {
+export default function Services({ showHeading = true }) {
   const { ref, visible } = useReveal();
 
   return (
     <section className="services section" id="services">
       <div className="container">
-        <SectionHeading
-          eyebrow="Services"
-          title="From job order to departure"
-          description="Recruitment, visa support, Protector clearance and travel — handled by our licensed Islamabad team."
-        />
+        {showHeading && (
+          <SectionHeading
+            eyebrow="Services"
+            title="From job order to departure"
+            description="Recruitment, visa support, Protector clearance and travel — handled by our licensed Islamabad team."
+          />
+        )}
 
         <div
           ref={ref}
