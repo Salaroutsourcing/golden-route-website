@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { label: 'Positions', to: '/positions' },
   { label: 'How It Works', to: '/how-it-works' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Employer', to: '/employer' },
 ];
 
 export default function Header() {

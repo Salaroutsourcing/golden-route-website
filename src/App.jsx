@@ -24,6 +24,10 @@ function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="apply" element={<ApplyPage />} />
           <Route path="employer" element={<EmployerPage />} />
+          <Route path="employer-portal" element={<EmployerPage />} />
+          <Route path="employers" element={<EmployerPage />} />
+          <Route path="client" element={<EmployerPage />} />
+          <Route path="clients" element={<EmployerPage />} />
         </Route>
       </Routes>
     </HashRouter>

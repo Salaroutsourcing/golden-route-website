@@ -1,0 +1,41 @@
+.positions-page__employer-bar {
+  background: #0b3224;
+  border-bottom: 1px solid rgba(226, 210, 180, 0.3);
+}
+
+.positions-page__employer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-block: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.positions-page__employer-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-light);
+  margin-bottom: var(--space-1);
+}
+
+.positions-page__employer-text {
+  color: #f3efe6;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.positions-page__hint {
+  padding-bottom: var(--space-10);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.positions-page__hint a {
+  color: var(--flag-green);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
