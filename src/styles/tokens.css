@@ -1,26 +1,26 @@
 /* ==========================================================================
    DESIGN TOKENS — Golden Route OEP
-   Gulf / Saudi visual vocabulary: basalt, palm green, brass, desert sand.
+   High-contrast Gulf palette for readable text on light and dark surfaces.
    ========================================================================== */
 
 :root {
   /* ---- Brand palette ---- */
-  --basalt: #1a1714;
-  --palm: #0e3d2c;
-  --flag-green: #006c35;
-  --desert-sand: #d9c7a7;
-  --brass: #b8956c;
-  --limestone: #f7f3ec;
+  --basalt: #141210;
+  --palm: #0b3224;
+  --flag-green: #007a3d;
+  --desert-sand: #e2d2b4;
+  --brass: #c4a06e;
+  --limestone: #faf7f2;
 
   /* ---- Derived tones ---- */
   --basalt-800: #2a2520;
-  --basalt-600: #4a433c;
-  --palm-700: #0a2e21;
-  --palm-500: #145a42;
-  --flag-green-soft: #e6f4ec;
-  --brass-dark: #8f734f;
-  --brass-light: #d4bc96;
-  --sand-soft: #efe6d6;
+  --basalt-600: #3d3832;
+  --palm-700: #08281c;
+  --palm-500: #114f39;
+  --flag-green-soft: #e8f6ee;
+  --brass-dark: #7a5f38;
+  --brass-light: #e0c99a;
+  --sand-soft: #f0e9dc;
   --white: #ffffff;
 
   /* ---- Surface roles ---- */
@@ -31,34 +31,37 @@
   --surface-inverse-deep: var(--basalt);
   --surface-inverse-raised: var(--palm-500);
 
-  --text-primary: var(--basalt);
-  --text-secondary: var(--basalt-600);
-  --text-muted: #7a7268;
-  --text-on-inverse: var(--limestone);
-  --text-on-inverse-muted: var(--desert-sand);
+  /* Text: dark-on-light */
+  --text-primary: #141210;
+  --text-secondary: #3d3832;
+  --text-muted: #5c554c;
+  /* Text: light-on-dark */
+  --text-on-inverse: #ffffff;
+  --text-on-inverse-muted: #e8dcc4;
 
-  --border-subtle: rgba(26, 23, 20, 0.1);
-  --border-default: rgba(26, 23, 20, 0.18);
+  --border-subtle: rgba(20, 18, 16, 0.12);
+  --border-default: rgba(20, 18, 16, 0.22);
   --border-brass: var(--brass);
+  --border-gold: var(--brass);
   --border-sand: var(--desert-sand);
 
-  /* Legacy aliases (keep existing components working during migration) */
+  /* Legacy aliases — mapped for correct contrast */
   --navy-950: var(--basalt);
-  --navy-900: var(--palm);
-  --navy-800: var(--palm-500);
+  --navy-900: var(--basalt);
+  --navy-800: var(--palm);
   --navy-700: var(--palm-500);
   --navy-600: var(--flag-green);
-  --navy-100: var(--flag-green-soft);
+  --navy-100: #f3efe6;
   --navy-50: var(--sand-soft);
   --gold-700: var(--brass-dark);
   --gold-500: var(--brass);
   --gold-400: var(--brass-light);
-  --gold-300: var(--desert-sand);
+  --gold-300: var(--brass-light);
   --gold-100: var(--sand-soft);
   --cream-50: var(--limestone);
   --cream-100: var(--sand-soft);
-  --ink-900: var(--basalt);
-  --ink-600: var(--basalt-600);
+  --ink-900: var(--text-primary);
+  --ink-600: var(--text-secondary);
   --ink-400: var(--text-muted);
   --success-600: var(--flag-green);
 
@@ -79,7 +82,7 @@
   --fs-4xl: 3.75rem;
   --fs-5xl: 4.5rem;
 
-  /* ---- Spacing scale (4px base) ---- */
+  /* ---- Spacing ---- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -103,10 +106,10 @@
   --radius-full: 999px;
 
   /* ---- Shadows ---- */
-  --shadow-sm: 0 2px 8px rgba(26, 23, 20, 0.08);
-  --shadow-md: 0 8px 24px rgba(26, 23, 20, 0.12);
-  --shadow-lg: 0 20px 48px rgba(26, 23, 20, 0.18);
-  --shadow-brass: 0 8px 24px rgba(184, 149, 108, 0.3);
+  --shadow-sm: 0 2px 8px rgba(20, 18, 16, 0.08);
+  --shadow-md: 0 8px 24px rgba(20, 18, 16, 0.12);
+  --shadow-lg: 0 20px 48px rgba(20, 18, 16, 0.18);
+  --shadow-brass: 0 8px 24px rgba(196, 160, 110, 0.35);
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

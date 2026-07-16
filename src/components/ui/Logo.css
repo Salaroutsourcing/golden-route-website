@@ -20,26 +20,26 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.35rem;
-  color: var(--navy-900);
-  letter-spacing: -0.01em;
+  color: var(--basalt);
+  letter-spacing: 0;
 }
 
 .logo__tagline {
   font-family: var(--font-body);
   font-size: 0.625rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold-700);
+  color: var(--flag-green);
   margin-top: 2px;
 }
 
 .logo__wordmark--light .logo__name {
-  color: var(--white);
+  color: #ffffff;
 }
 
 .logo__wordmark--light .logo__tagline {
-  color: var(--gold-300);
+  color: var(--brass-light);
 }
 
 @media (max-width: 480px) {

@@ -1,7 +1,7 @@
 .trust-strip {
-  background: var(--palm);
-  color: var(--text-on-inverse);
-  border-bottom: 1px solid rgba(217, 199, 167, 0.25);
+  background: #0b3224;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(226, 210, 180, 0.3);
 }
 
 .trust-strip__grid {
@@ -16,7 +16,7 @@
   flex-direction: column;
   gap: var(--space-1);
   padding-inline: var(--space-4);
-  border-inline-start: 1px solid rgba(217, 199, 167, 0.25);
+  border-inline-start: 1px solid rgba(226, 210, 180, 0.28);
 }
 
 .trust-strip__item:first-child {
@@ -34,8 +34,8 @@
 
 .trust-strip__value {
   font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--limestone);
+  font-weight: 700;
+  color: #ffffff;
   line-height: 1.35;
 }
 
@@ -43,6 +43,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   letter-spacing: 0.02em;
+  color: #f3efe6;
 }
 
 @media (max-width: 900px) {
@@ -66,7 +67,7 @@
     border-inline-start: none;
     padding-inline: 0;
     padding-block: var(--space-2);
-    border-block-end: 1px solid rgba(217, 199, 167, 0.2);
+    border-block-end: 1px solid rgba(226, 210, 180, 0.22);
   }
 
   .trust-strip__item:last-child {

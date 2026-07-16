@@ -29,8 +29,23 @@
   flex-direction: column;
   gap: var(--space-2);
   font-size: var(--fs-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--basalt);
+}
+
+.jobs-portal__note {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.jobs-portal__direct {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--flag-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .jobs-portal__field input[type='text'],
@@ -59,25 +74,11 @@
   border-radius: var(--radius-sm);
 }
 
-.jobs-portal__note {
-  font-size: var(--fs-xs);
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
 .jobs-portal__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-4);
-}
-
-.jobs-portal__direct {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--flag-green);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .jobs-portal__status {
@@ -90,10 +91,10 @@
 
 .jobs-portal__qr {
   padding: var(--space-8);
-  background: var(--palm);
-  color: var(--limestone);
+  background: #0b3224;
+  color: #ffffff;
   text-align: center;
-  border: 1px solid rgba(217, 199, 167, 0.35);
+  border: 1px solid rgba(226, 210, 180, 0.4);
 }
 
 .jobs-portal__qr-frame {
@@ -114,12 +115,13 @@
 .jobs-portal__qr-title {
   font-family: var(--font-display);
   font-size: var(--fs-lg);
+  color: #ffffff;
   margin-bottom: var(--space-2);
 }
 
 .jobs-portal__qr-text {
   font-size: var(--fs-sm);
-  color: var(--desert-sand);
+  color: #e8dcc4;
 }
 
 @media (max-width: 900px) {

@@ -1,14 +1,14 @@
 .trades {
-  background: var(--basalt);
-  color: var(--text-on-inverse);
+  background: #141210;
+  color: #ffffff;
 }
 
 .trades .section-heading__title {
-  color: var(--limestone);
+  color: #ffffff;
 }
 
 .trades .section-heading__description {
-  color: var(--desert-sand);
+  color: #e8dcc4;
 }
 
 .trades .section-heading__eyebrow {
@@ -16,7 +16,7 @@
 }
 
 .trades .section-heading__eyebrow::before {
-  background: var(--brass);
+  background: var(--brass-light);
 }
 
 .trades__grid {
@@ -47,7 +47,7 @@
   position: absolute;
   inset: auto 0 0 0;
   padding: var(--space-5);
-  background: linear-gradient(transparent, rgba(26, 23, 20, 0.92));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.92));
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
@@ -56,12 +56,12 @@
 .trades__label {
   font-family: var(--font-display);
   font-size: var(--fs-md);
-  color: var(--limestone);
+  color: #ffffff;
 }
 
 .trades__caption {
   font-size: var(--fs-xs);
-  color: var(--desert-sand);
+  color: #e8dcc4;
 }
 
 @media (max-width: 1000px) {

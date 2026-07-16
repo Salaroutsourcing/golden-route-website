@@ -22,7 +22,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--brass-dark);
+  color: var(--flag-green);
   position: relative;
   padding-left: var(--space-6);
 }
@@ -36,10 +36,6 @@
   width: 18px;
   height: 2px;
   background: var(--flag-green);
-}
-
-.section-heading--center .section-heading__eyebrow {
-  padding-left: var(--space-6);
 }
 
 .section-heading__title {

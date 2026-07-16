@@ -20,12 +20,13 @@
   font-size: var(--fs-2xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brass-dark);
+  color: var(--flag-green);
   margin-bottom: var(--space-2);
 }
 
 .employer__title {
   font-size: var(--fs-2xl);
+  color: var(--basalt);
   margin-bottom: var(--space-2);
 }
 

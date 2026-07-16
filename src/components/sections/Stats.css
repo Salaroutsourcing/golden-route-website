@@ -1,5 +1,5 @@
 .stats {
-  background: var(--palm);
+  background: #0b3224;
   padding-block: var(--space-16);
 }
 
@@ -13,7 +13,7 @@
 .stats__value {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 4vw, 3.25rem);
-  color: var(--limestone);
+  color: #ffffff;
   line-height: 1;
   margin-bottom: var(--space-2);
 }
@@ -25,8 +25,8 @@
 
 .stats__label {
   font-size: var(--fs-sm);
-  color: var(--desert-sand);
-  font-weight: 500;
+  color: #e8dcc4;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {

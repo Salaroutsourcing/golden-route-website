@@ -1,8 +1,8 @@
 .page-hero {
-  background: linear-gradient(135deg, var(--palm) 0%, var(--basalt) 100%);
-  color: var(--limestone);
+  background: linear-gradient(135deg, #0b3224 0%, #141210 100%);
+  color: #ffffff;
   padding-block: var(--space-16) var(--space-12);
-  border-bottom: 1px solid rgba(217, 199, 167, 0.3);
+  border-bottom: 1px solid rgba(226, 210, 180, 0.35);
 }
 
 .page-hero__inner {
@@ -21,13 +21,13 @@
 .page-hero__title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--limestone);
+  color: #ffffff;
   margin-bottom: var(--space-3);
 }
 
 .page-hero__desc {
   font-size: var(--fs-md);
-  color: var(--desert-sand);
+  color: #e8dcc4;
   line-height: 1.55;
 }
 

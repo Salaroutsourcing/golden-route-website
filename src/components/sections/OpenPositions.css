@@ -48,17 +48,19 @@
 .positions__title {
   font-size: var(--fs-lg);
   line-height: 1.25;
+  color: var(--basalt);
 }
 
 .positions__meta {
   font-size: var(--fs-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-secondary);
 }
 
 .positions__salary {
   font-size: var(--fs-xs);
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .positions__toggle {

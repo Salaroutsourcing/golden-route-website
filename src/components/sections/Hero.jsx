@@ -10,10 +10,10 @@ export default function Hero() {
       <div className="hero__media" aria-hidden="true">
         <img
           className="hero__img"
-          src="/images/hero-saudi.jpg"
+          src="/images/hero-riyadh.jpg"
           alt="Riyadh skyline with Kingdom Centre Tower at dusk, Saudi Arabia"
-          width={1536}
-          height={1024}
+          width={1024}
+          height={682}
           fetchPriority="high"
           decoding="async"
         />

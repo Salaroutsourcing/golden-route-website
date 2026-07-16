@@ -45,6 +45,7 @@
   font-size: var(--fs-sm);
   color: var(--text-secondary);
   line-height: 1.65;
+  font-weight: 500;
 }
 
 @media (max-width: 900px) {
