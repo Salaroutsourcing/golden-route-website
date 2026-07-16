@@ -53,8 +53,8 @@ ol {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 
@@ -66,7 +66,7 @@ select {
 }
 
 :focus-visible {
-  outline: 3px solid var(--gold-500);
+  outline: 3px solid var(--flag-green);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -87,6 +87,7 @@ select {
 
 .section {
   padding-block: var(--space-20);
+  position: relative;
 }
 
 @media (max-width: 640px) {
@@ -104,8 +105,43 @@ select {
   white-space: nowrap;
 }
 
+/* ---- Geometric corridor motif (signature texture) ---- */
+.geo-motif {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23d9c7a7' stroke-width='0.8' opacity='0.45'%3E%3Cpath d='M24 4 L30 14 L40 14 L32 22 L35 34 L24 28 L13 34 L16 22 L8 14 L18 14 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+.geo-motif--dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23d9c7a7' stroke-width='0.8' opacity='0.18'%3E%3Cpath d='M24 4 L30 14 L40 14 L32 22 L35 34 L24 28 L13 34 L16 22 L8 14 L18 14 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.geo-motif--green {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23006c35' stroke-width='0.8' opacity='0.12'%3E%3Cpath d='M24 4 L30 14 L40 14 L32 22 L35 34 L24 28 L13 34 L16 22 L8 14 L18 14 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---- Quiet section reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ---- Selection ---- */
 ::selection {
-  background-color: var(--gold-300);
-  color: var(--navy-900);
+  background-color: var(--desert-sand);
+  color: var(--basalt);
 }

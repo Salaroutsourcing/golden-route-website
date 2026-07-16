@@ -1,66 +1,83 @@
 /* ==========================================================================
    DESIGN TOKENS — Golden Route OEP
-   Single source of truth. Change a value here, it updates site-wide.
+   Gulf / Saudi visual vocabulary: basalt, palm green, brass, desert sand.
    ========================================================================== */
 
 :root {
-  /* ---- Brand Colors (sourced from the official business card) ---- */
-  --navy-950: #0a1c40;
-  --navy-900: #0f2557;
-  --navy-800: #15326f;
-  --navy-700: #1b3a6b;
-  --navy-600: #2c4d85;
-  --navy-100: #e8edf6;
-  --navy-50: #f4f6fb;
+  /* ---- Brand palette ---- */
+  --basalt: #1a1714;
+  --palm: #0e3d2c;
+  --flag-green: #006c35;
+  --desert-sand: #d9c7a7;
+  --brass: #b8956c;
+  --limestone: #f7f3ec;
 
-  --gold-700: #9c7420;
-  --gold-500: #c9962f;
-  --gold-400: #d6ab4d;
-  --gold-300: #e0b85c;
-  --gold-100: #f5e6c4;
-
-  --cream-50: #f7f6f2;
-  --cream-100: #f1efe8;
-
-  --ink-900: #14213a;
-  --ink-600: #475569;
-  --ink-400: #8189a0;
-
+  /* ---- Derived tones ---- */
+  --basalt-800: #2a2520;
+  --basalt-600: #4a433c;
+  --palm-700: #0a2e21;
+  --palm-500: #145a42;
+  --flag-green-soft: #e6f4ec;
+  --brass-dark: #8f734f;
+  --brass-light: #d4bc96;
+  --sand-soft: #efe6d6;
   --white: #ffffff;
-  --success-600: #1e7d4f;
 
-  /* ---- Surface roles (semantic, built from the above) ---- */
-  --surface-base: var(--cream-50);
+  /* ---- Surface roles ---- */
+  --surface-base: var(--limestone);
   --surface-raised: var(--white);
-  --surface-inverse: var(--navy-900);
-  --surface-inverse-raised: var(--navy-800);
+  --surface-muted: var(--sand-soft);
+  --surface-inverse: var(--palm);
+  --surface-inverse-deep: var(--basalt);
+  --surface-inverse-raised: var(--palm-500);
 
-  --text-primary: var(--ink-900);
-  --text-secondary: var(--ink-600);
-  --text-muted: var(--ink-400);
-  --text-on-inverse: var(--white);
-  --text-on-inverse-muted: var(--navy-100);
+  --text-primary: var(--basalt);
+  --text-secondary: var(--basalt-600);
+  --text-muted: #7a7268;
+  --text-on-inverse: var(--limestone);
+  --text-on-inverse-muted: var(--desert-sand);
 
-  --border-subtle: rgba(15, 37, 87, 0.1);
-  --border-default: rgba(15, 37, 87, 0.18);
-  --border-gold: var(--gold-500);
+  --border-subtle: rgba(26, 23, 20, 0.1);
+  --border-default: rgba(26, 23, 20, 0.18);
+  --border-brass: var(--brass);
+  --border-sand: var(--desert-sand);
+
+  /* Legacy aliases (keep existing components working during migration) */
+  --navy-950: var(--basalt);
+  --navy-900: var(--palm);
+  --navy-800: var(--palm-500);
+  --navy-700: var(--palm-500);
+  --navy-600: var(--flag-green);
+  --navy-100: var(--flag-green-soft);
+  --navy-50: var(--sand-soft);
+  --gold-700: var(--brass-dark);
+  --gold-500: var(--brass);
+  --gold-400: var(--brass-light);
+  --gold-300: var(--desert-sand);
+  --gold-100: var(--sand-soft);
+  --cream-50: var(--limestone);
+  --cream-100: var(--sand-soft);
+  --ink-900: var(--basalt);
+  --ink-600: var(--basalt-600);
+  --ink-400: var(--text-muted);
+  --success-600: var(--flag-green);
 
   /* ---- Typography ---- */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Amiri', 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 
-  --fs-2xs: 0.6875rem;   /* 11px */
-  --fs-xs: 0.8125rem;    /* 13px */
-  --fs-sm: 0.9375rem;    /* 15px */
-  --fs-base: 1rem;       /* 16px */
-  --fs-md: 1.125rem;     /* 18px */
-  --fs-lg: 1.375rem;     /* 22px */
-  --fs-xl: 1.75rem;      /* 28px */
-  --fs-2xl: 2.25rem;     /* 36px */
-  --fs-3xl: 3rem;        /* 48px */
-  --fs-4xl: 3.75rem;     /* 60px */
-  --fs-5xl: 4.5rem;      /* 72px */
+  --fs-2xs: 0.6875rem;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 3rem;
+  --fs-4xl: 3.75rem;
+  --fs-5xl: 4.5rem;
 
   /* ---- Spacing scale (4px base) ---- */
   --space-1: 0.25rem;
@@ -80,16 +97,16 @@
   /* ---- Layout ---- */
   --container-max: 1240px;
   --container-narrow: 800px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-full: 999px;
 
   /* ---- Shadows ---- */
-  --shadow-sm: 0 2px 8px rgba(15, 37, 87, 0.08);
-  --shadow-md: 0 8px 24px rgba(15, 37, 87, 0.12);
-  --shadow-lg: 0 20px 48px rgba(15, 37, 87, 0.18);
-  --shadow-gold: 0 8px 24px rgba(201, 150, 47, 0.25);
+  --shadow-sm: 0 2px 8px rgba(26, 23, 20, 0.08);
+  --shadow-md: 0 8px 24px rgba(26, 23, 20, 0.12);
+  --shadow-lg: 0 20px 48px rgba(26, 23, 20, 0.18);
+  --shadow-brass: 0 8px 24px rgba(184, 149, 108, 0.3);
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -97,7 +114,7 @@
   --duration-base: 280ms;
   --duration-slow: 500ms;
 
-  /* ---- Z-index scale ---- */
+  /* ---- Z-index ---- */
   --z-header: 100;
   --z-overlay: 200;
   --z-modal: 300;

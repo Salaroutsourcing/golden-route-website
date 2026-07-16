@@ -5,16 +5,13 @@ import Button from '../ui/Button';
 import Icon from '../ui/Icon';
 import { siteConfig } from '../../data/siteConfig';
 
-// ==========================================================================
-// HEADER — sticky nav. Add/remove a nav link by editing NAV_LINKS below.
-// ==========================================================================
-
 const NAV_LINKS = [
+  { label: 'Why Us', href: '#why-us' },
   { label: 'Services', href: '#services' },
-  { label: 'Workforce', href: '#workforce' },
+  { label: 'Trades', href: '#workforce' },
+  { label: 'Positions', href: '#positions' },
   { label: 'How It Works', href: '#process' },
-  { label: 'About', href: '#about' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Header() {
@@ -23,7 +20,7 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -37,7 +34,7 @@ export default function Header() {
     <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
       <div className="container header__inner">
         <a href="#top" className="header__logo-link" aria-label="Golden Route — home">
-          <Logo size={42} />
+          <Logo size={isScrolled ? 36 : 42} />
         </a>
 
         <nav className="header__nav" aria-label="Primary">
@@ -49,11 +46,14 @@ export default function Header() {
         </nav>
 
         <div className="header__actions">
-          <a href={`tel:${siteConfig.contact.phones[0].number.replace(/\s/g, '')}`} className="header__phone">
+          <a
+            href={`tel:${siteConfig.contact.phones[0].number.replace(/\s/g, '')}`}
+            className="header__phone"
+          >
             <Icon name="phone" size={16} />
             <span>{siteConfig.contact.phones[0].number}</span>
           </a>
-          <Button href="#contact" variant="primary" size="sm">
+          <Button href="#jobs-portal" variant="primary" size="sm">
             Apply Now
           </Button>
         </div>
@@ -63,26 +63,43 @@ export default function Header() {
           onClick={() => setIsMenuOpen((v) => !v)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}
+          type="button"
         >
           <Icon name={isMenuOpen ? 'close' : 'menu'} size={26} />
         </button>
       </div>
 
-      {/* ---- Mobile menu overlay ---- */}
-      <div className={`header__mobile-menu ${isMenuOpen ? 'header__mobile-menu--open' : ''}`}>
+      <div
+        className={`header__mobile-menu ${isMenuOpen ? 'header__mobile-menu--open' : ''}`}
+        id="mobile-nav"
+      >
         <nav aria-label="Mobile">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={handleLinkClick} className="header__mobile-link">
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleLinkClick}
+              className="header__mobile-link"
+            >
               {link.label}
             </a>
           ))}
         </nav>
         <div className="header__mobile-footer">
-          <a href={`tel:${siteConfig.contact.phones[0].number.replace(/\s/g, '')}`} className="header__mobile-phone">
+          <a
+            href={`tel:${siteConfig.contact.phones[0].number.replace(/\s/g, '')}`}
+            className="header__mobile-phone"
+          >
             <Icon name="phone" size={18} />
             {siteConfig.contact.phones[0].number}
           </a>
-          <Button href="#contact" variant="primary" size="lg" onClick={handleLinkClick} className="header__mobile-cta">
+          <Button
+            href="#jobs-portal"
+            variant="primary"
+            size="lg"
+            onClick={handleLinkClick}
+            className="header__mobile-cta"
+          >
             Apply Now
           </Button>
         </div>

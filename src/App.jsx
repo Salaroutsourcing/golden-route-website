@@ -1,24 +1,18 @@
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
+import TrustStrip from './components/sections/TrustStrip';
+import WhyUs from './components/sections/WhyUs';
 import Services from './components/sections/Services';
-import Gallery from './components/sections/Gallery';
 import Process from './components/sections/Process';
-import CTABanner from './components/sections/CTABanner';
-import About from './components/sections/About';
-import FAQ from './components/sections/FAQ';
+import Trades from './components/sections/Trades';
+import OpenPositions from './components/sections/OpenPositions';
+import Stats from './components/sections/Stats';
+import Testimonials from './components/sections/Testimonials';
+import JobsPortal from './components/sections/JobsPortal';
 import Contact from './components/sections/Contact';
+import EmployerPortal from './components/sections/EmployerPortal';
 import FloatingWhatsApp from './components/ui/FloatingWhatsApp';
-
-// ==========================================================================
-// APP — page assembly. This is the ONLY file you need to touch to add,
-// remove, or reorder a section on the homepage.
-//
-// To remove a section: delete its line below (and its import above).
-// To add a section: build it in src/components/sections/, import it,
-//                    drop <YourSection /> wherever you want it to appear.
-// To reorder: just move the lines.
-// ==========================================================================
 
 function App() {
   return (
@@ -27,17 +21,20 @@ function App() {
 
       <main>
         <Hero />
+        <TrustStrip />
+        <WhyUs />
         <Services />
-        <Gallery />
         <Process />
-        <CTABanner />
-        <About />
-        <FAQ />
+        <Trades />
+        <OpenPositions />
+        <Stats />
+        <Testimonials />
+        <JobsPortal />
         <Contact />
+        <EmployerPortal />
       </main>
 
       <Footer />
-
       <FloatingWhatsApp />
     </>
   );

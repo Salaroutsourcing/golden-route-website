@@ -22,7 +22,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--gold-700);
+  color: var(--brass-dark);
   position: relative;
   padding-left: var(--space-6);
 }
@@ -35,12 +35,16 @@
   transform: translateY(-50%);
   width: 18px;
   height: 2px;
-  background: var(--gold-500);
+  background: var(--flag-green);
+}
+
+.section-heading--center .section-heading__eyebrow {
+  padding-left: var(--space-6);
 }
 
 .section-heading__title {
   font-size: clamp(1.75rem, 3.2vw, var(--fs-2xl));
-  color: var(--navy-900);
+  color: var(--basalt);
 }
 
 .section-heading__description {

@@ -1,49 +1,44 @@
-// ==========================================================================
-// SERVICES DATA — add/remove a service by adding/removing an object here.
-// The ServicesGrid component just maps over this array.
-// ==========================================================================
-
 export const services = [
   {
     id: 'recruitment',
-    title: 'Manpower Recruitment',
+    title: 'Gulf manpower recruitment',
     description:
-      'End-to-end sourcing and screening of skilled, semi-skilled, and labour categories for verified overseas employers.',
+      'Source and screen drivers, construction trades, oil & gas crews, and skilled labour for verified Gulf employers.',
     icon: 'users',
   },
   {
     id: 'visa-processing',
-    title: 'Visa Processing',
+    title: 'Visa & documentation',
     description:
-      'Complete visa documentation, embassy coordination, and processing support handled by our in-house team.',
+      'Embassy paperwork, medicals coordination, and visa stamping support handled by our Islamabad desk.',
     icon: 'document',
   },
   {
     id: 'protector-emigration',
-    title: 'Protector of Emigrants Clearance',
+    title: 'Protector clearance',
     description:
-      'Full compliance with Bureau of Emigration & Overseas Employment (BE&OE) protector clearance requirements.',
+      'Full BE&OE Protector of Emigrants compliance under license OP&HRD/5296/RWP/2026.',
     icon: 'shield',
   },
   {
     id: 'travel-arrangement',
-    title: 'Travel Arrangement',
+    title: 'Travel & deployment',
     description:
-      'Flight booking, pre-departure briefings, and travel logistics so candidates depart fully prepared.',
+      'Flight booking, pre-departure briefing, and handoff so candidates land ready for site induction.',
     icon: 'plane',
   },
   {
     id: 'employer-verification',
-    title: 'Employer Verification',
+    title: 'Employer verification',
     description:
-      'Every overseas employer and job offer is verified before it reaches a candidate — no exceptions.',
+      'Every overseas job order is checked before it reaches a candidate — no unverified offers.',
     icon: 'check-badge',
   },
   {
     id: 'post-deployment',
-    title: 'Post-Deployment Support',
+    title: 'Post-deployment support',
     description:
-      'We stay reachable after deployment to assist with contract or welfare concerns at the destination.',
+      'WhatsApp and phone support after arrival for contract or welfare questions at destination.',
     icon: 'support',
   },
 ];

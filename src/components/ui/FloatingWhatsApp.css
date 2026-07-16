@@ -63,3 +63,9 @@
     right: 18px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-whatsapp {
+    animation: none;
+  }
+}

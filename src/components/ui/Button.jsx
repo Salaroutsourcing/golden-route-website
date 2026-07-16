@@ -15,6 +15,7 @@ export default function Button({
   icon,
   type = 'button',
   className = '',
+  disabled = false,
   ...rest
 }) {
   const classes = `btn btn--${variant} btn--${size} ${className}`.trim();
@@ -28,14 +29,14 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes} {...rest}>
+      <a href={href} className={classes} onClick={onClick} {...rest}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick} {...rest}>
+    <button type={type} className={classes} onClick={onClick} disabled={disabled} {...rest}>
       {content}
     </button>
   );

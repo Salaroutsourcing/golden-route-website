@@ -5,21 +5,17 @@ import CredentialBadge from '../ui/CredentialBadge';
 import { siteConfig } from '../../data/siteConfig';
 import { services } from '../../data/services';
 
-// ==========================================================================
-// FOOTER — bottom-of-page block. Sourced entirely from siteConfig + services.
-// ==========================================================================
-
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className="footer geo-motif geo-motif--dark">
       <div className="container footer__top">
         <div className="footer__brand">
           <Logo variant="light" size={46} />
           <p className="footer__about">
-            A licensed overseas employment promoter based in Islamabad, connecting
-            skilled Pakistani workers with verified employers abroad.
+            Licensed overseas employment promoters placing Pakistani workers with verified
+            employers in Saudi Arabia, UAE, Qatar, Kuwait, Bahrain and Oman.
           </p>
           <CredentialBadge variant="inverse" />
         </div>
@@ -36,12 +32,13 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <h3 className="footer__heading">Quick Links</h3>
+          <h3 className="footer__heading">Quick links</h3>
           <ul>
-            <li><a href="#process">How It Works</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#positions">Open positions</a></li>
+            <li><a href="#process">How it works</a></li>
+            <li><a href="#jobs-portal">Job portal</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#employer-portal">Employer login</a></li>
           </ul>
         </div>
 
@@ -65,7 +62,12 @@ export default function Footer() {
           </ul>
 
           <div className="footer__socials">
-            <a href={siteConfig.social.whatsapp} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+            <a
+              href={siteConfig.social.whatsapp}
+              aria-label="WhatsApp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon name="whatsapp" size={18} />
             </a>
             <a href={siteConfig.social.facebook} aria-label="Facebook">
@@ -80,8 +82,12 @@ export default function Footer() {
 
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
-          <span>© {year} Golden Route Overseas Employment Promoters. All rights reserved.</span>
-          <span className="footer__license-text">License No. {siteConfig.licenseNumber}</span>
+          <span>
+            © {year} Golden Route Overseas Employment Promoters. All rights reserved.
+          </span>
+          <span className="footer__license-text">
+            License No. {siteConfig.licenseNumber}
+          </span>
         </div>
       </div>
     </footer>

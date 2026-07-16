@@ -1,72 +1,57 @@
 import './Hero.css';
 import Button from '../ui/Button';
-import CredentialBadge from '../ui/CredentialBadge';
-import Icon from '../ui/Icon';
-import { stats } from '../../data/stats';
-
-// ==========================================================================
-// HERO — first viewport. The bordered panel echoes the business card's
-// navy frame; the credential badge foregrounds the license up front.
-// ==========================================================================
+import Flag from '../ui/Flag';
+import { siteConfig } from '../../data/siteConfig';
 
 export default function Hero() {
   return (
-    <section className="hero" id="top">
-      <div className="hero__frame">
-        <div className="container hero__inner">
-          <div className="hero__content">
-            <CredentialBadge />
+    <section className="hero" id="top" aria-label="Welcome">
+      <div className="hero__media" aria-hidden="true">
+        <img
+          className="hero__img"
+          src="/images/hero-saudi.jpg"
+          alt=""
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div className="hero__overlay" />
+      </div>
 
-            <h1 className="hero__headline">
-              Your Trusted Route to a <span className="hero__accent">Verified Career</span> Abroad
-            </h1>
+      <div className="container hero__content">
+        <p className="hero__eyebrow">Vision 2030 · Gulf placements from Islamabad</p>
+        <h1 className="hero__title">Your verified route to work in the Gulf</h1>
+        <p className="hero__sub">
+          Golden Route places skilled Pakistani workers with licensed employers in Saudi Arabia,
+          UAE, Qatar, Kuwait, Bahrain and Oman.
+        </p>
+        <Button href="#jobs-portal" variant="primary" size="lg" icon="arrow-right">
+          Apply Now
+        </Button>
+      </div>
 
-            <p className="hero__subline">
-              Golden Route is a licensed overseas employment promoter based in Islamabad,
-              connecting skilled and semi-skilled Pakistani workers with verified employers
-              across the Gulf and Middle East — every step handled with full transparency.
-            </p>
-
-            <div className="hero__cta-group">
-              <Button href="#contact" variant="primary" size="lg" icon="arrow-right">
-                Register Your Profile
-              </Button>
-              <Button href="#process" variant="secondary" size="lg">
-                See How It Works
-              </Button>
-            </div>
-          </div>
-
-          <div className="hero__visual" aria-hidden="true">
-            <div className="hero__visual-ring hero__visual-ring--outer" />
-            <div className="hero__visual-ring hero__visual-ring--inner" />
-            <div className="hero__visual-core">
-              <Icon name="spark" size={30} />
-            </div>
-            <div className="hero__visual-chip hero__visual-chip--1">
-              <Icon name="check-badge" size={16} />
-              <span>Employer Verified</span>
-            </div>
-            <div className="hero__visual-chip hero__visual-chip--2">
-              <Icon name="shield" size={16} />
-              <span>BE&OE Compliant</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ---- Stats bar ---- */}
-        <div className="container">
-          <div className="hero__stats">
-            {stats.map((stat) => (
-              <div key={stat.label} className="hero__stat">
-                <span className="hero__stat-value">
-                  {stat.value}
-                  <span className="hero__stat-suffix">{stat.suffix}</span>
-                </span>
-                <span className="hero__stat-label">{stat.label}</span>
-              </div>
+      <div className="hero__corridor geo-motif geo-motif--dark">
+        <div className="container hero__corridor-inner">
+          <p className="hero__welcome">
+            <span lang="en">Welcome</span>
+            <span className="hero__welcome-sep" aria-hidden="true">·</span>
+            <span lang="ar" dir="rtl">أهلاً وسهلاً</span>
+          </p>
+          <ul className="hero__flags" aria-label="Gulf destination countries">
+            {siteConfig.gulfCountries.map((c) => (
+              <li key={c.code}>
+                <a
+                  className="hero__flag"
+                  href={`#positions`}
+                  title={`Open positions in ${c.name}`}
+                >
+                  <Flag code={c.code} name={c.name} className="hero__flag-icon" />
+                  <span className="hero__flag-name">{c.name}</span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

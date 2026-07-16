@@ -1,6 +1,6 @@
 .footer {
-  background: linear-gradient(160deg, var(--navy-900), var(--navy-950));
-  color: var(--navy-100);
+  background: linear-gradient(160deg, var(--palm), var(--basalt));
+  color: var(--desert-sand);
   padding-top: var(--space-20);
 }
 
