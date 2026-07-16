@@ -52,7 +52,7 @@
 }
 
 .contact__cta-panel {
-  background: #0b3224;
+  background-color: #0b3224;
   color: #ffffff;
   padding: var(--space-10);
   border: 1px solid rgba(226, 210, 180, 0.35);
