@@ -17,13 +17,13 @@ export const siteConfig = {
     mapUrl:
       'https://www.google.com/maps/search/?api=1&query=Main+Murree+Road+Bhara+Kahu+Islamabad+Pakistan',
     phones: [
-      { name: 'Muhammad Asif', role: 'Managing Director', number: '+92 306 6050645' },
+      { name: 'Muhammad Asif', role: 'Managing Director', number: '+92 300 1786444' },
     ],
   },
 
   social: {
     facebook: '#',
-    whatsapp: 'https://wa.me/923066050645',
+    whatsapp: 'https://wa.me/923001786444',
     instagram: '#',
   },
 
@@ -37,7 +37,7 @@ export const siteConfig = {
     {
       name: 'Muhammad Asif',
       role: 'Managing Director',
-      phone: '+92 306 6050645',
+      phone: '+92 300 1786444',
     },
   ],
 
