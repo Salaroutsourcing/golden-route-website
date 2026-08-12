@@ -10,7 +10,7 @@ Share this with employers:
 
 Examples:
 - Local: `http://localhost:5173/#/employer`
-- GitHub Pages: `https://isajidkhan00-sys.github.io/golden-route-website/#/employer`
+- GitHub Pages: `https://goldenrouteoep.com/#/employer`
 
 Password: value of `VITE_EMPLOYER_PASSWORD` (default `Salaaroutsourcing@00`)
 

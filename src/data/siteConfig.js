@@ -12,7 +12,7 @@ export const siteConfig = {
 
   contact: {
     email: 'cv@goldenrouteoep.com',
-    website: 'www.goldenroute.com',
+    website: 'www.goldenrouteoep.com',
     address: 'Main Murree Road, Bhara Kahu, Islamabad, Pakistan',
     mapUrl:
       'https://www.google.com/maps/search/?api=1&query=Main+Murree+Road+Bhara+Kahu+Islamabad+Pakistan',

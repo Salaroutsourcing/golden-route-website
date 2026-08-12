@@ -124,6 +124,7 @@ a value there and it updates everywhere on the site automatically.
 
 ## 📌 Notes
 
+- **Hosting:** The site deploys to **GitHub Pages** on every push to `main` via `.github/workflows/deploy.yml` (Vite build → `dist`). Live URL: https://goldenrouteoep.com
 - The contact form currently opens the visitor's email client via `mailto:`
   (no backend). To wire it to a real backend or service like Formspree/EmailJS,
   edit the `handleSubmit` function in `src/components/sections/Contact.jsx` —
