@@ -14,7 +14,7 @@ Examples:
 
 Password: value of `VITE_EMPLOYER_PASSWORD` (default `Salaaroutsourcing@00`)
 
-Posted jobs appear on **`/#/positions`** with requirements and benefits.
+Posted jobs are stored in one shared list and appear on **`/#/positions`** for every visitor, not only the browser that created them. Requirements and benefits are included. A job that was posted before this shared list existed is copied up the next time that same browser opens the site.
 
 ## Firebase (recommended for live client use)
 

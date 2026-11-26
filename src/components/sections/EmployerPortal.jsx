@@ -41,6 +41,7 @@ export default function EmployerPortal() {
   const [draft, setDraft] = useState(EMPTY_JOB);
   const [busy, setBusy] = useState(false);
   const [postedMsg, setPostedMsg] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => subscribeJobs(setJobs), []);
 
@@ -119,20 +120,31 @@ export default function EmployerPortal() {
     }));
   };
 
-  const createJob = async (e) => {
-    e.preventDefault();
-    if (!draft.title.trim()) return;
+  const runJobChange = async (action) => {
     setBusy(true);
-    setPostedMsg('');
+    setSaveError('');
     try {
-      const created = await addJob(draft);
-      setDraft(EMPTY_JOB);
-      setPostedMsg(
-        `"${created.title}" is live on Open Positions. Candidates can see requirements and benefits now.`
+      await action();
+    } catch {
+      setSaveError(
+        'The public website did not save that change, so other visitors still see the previous list. Check the connection and try again.'
       );
     } finally {
       setBusy(false);
     }
+  };
+
+  const createJob = async (e) => {
+    e.preventDefault();
+    if (!draft.title.trim()) return;
+    setPostedMsg('');
+    await runJobChange(async () => {
+      const created = await addJob(draft);
+      setDraft(EMPTY_JOB);
+      setPostedMsg(
+        `"${created.title}" is live for everyone — other phones, computers, and visitors on the website can see it now.`
+      );
+    });
   };
 
   return (
@@ -173,8 +185,8 @@ export default function EmployerPortal() {
             </Button>
             <p className="employer__hint">
               {isFirebaseConfigured()
-                ? 'Connected to Firebase when credentials are configured.'
-                : 'Jobs save in this browser and appear on Open Positions immediately. For sharing across phones/PCs, connect Firebase (see EMPLOYER_PORTAL.md).'}
+                ? 'Connected to Firebase. Posted jobs are shared with every visitor.'
+                : 'Posted jobs go to the public website, so every visitor sees them — not only this browser.'}
             </p>
           </form>
         ) : (
@@ -268,10 +280,12 @@ export default function EmployerPortal() {
                   </Button>
                 </p>
               )}
+              {saveError && <p className="employer__error">{saveError}</p>}
             </form>
 
             <div className="employer__list">
               <h3>Posted jobs ({jobs.length})</h3>
+              <p className="employer__hint">Same list visitors see on Open Positions.</p>
               {jobs.length === 0 ? (
                 <p className="employer__empty">No jobs yet. Post your first opening above.</p>
               ) : (
@@ -291,18 +305,27 @@ export default function EmployerPortal() {
                       </div>
                       <div className="employer__job-actions">
                         {job.active !== false ? (
-                          <button type="button" onClick={() => setJobActive(job.id, false)}>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => runJobChange(() => setJobActive(job.id, false))}
+                          >
                             Mark complete
                           </button>
                         ) : (
-                          <button type="button" onClick={() => setJobActive(job.id, true)}>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => runJobChange(() => setJobActive(job.id, true))}
+                          >
                             Reopen
                           </button>
                         )}
                         <button
                           type="button"
                           className="employer__danger"
-                          onClick={() => removeJob(job.id)}
+                          disabled={busy}
+                          onClick={() => runJobChange(() => removeJob(job.id))}
                         >
                           Delete
                         </button>
