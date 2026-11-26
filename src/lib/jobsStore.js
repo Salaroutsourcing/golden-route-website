@@ -1,11 +1,29 @@
 // ==========================================================================
-// Jobs store — shared in-memory listeners + localStorage (Firebase optional).
+// Jobs store — one shared list for every visitor.
+// Firebase is used when configured. Otherwise the public jobs document is
+// the source of truth (not this browser's localStorage).
 // ==========================================================================
 
 import { seedJobs } from '../data/jobs';
+import { isJobRecord, mergeUnsyncedJobs, sortJobs } from './jobsMerge';
 
 const STORAGE_KEY = 'golden-route-jobs';
+const SYNCED_KEY = 'golden-route-jobs-synced';
+const JOBS_API_URL = 'https://api.npoint.io/2737838316f7b1f77c22';
+
 const listeners = new Set();
+const seedIds = new Set(seedJobs.map((job) => job.id));
+
+let writeQueue = Promise.resolve();
+
+function enqueue(task) {
+  const run = writeQueue.then(task, task);
+  writeQueue = run.then(
+    () => {},
+    () => {}
+  );
+  return run;
+}
 
 function isFirebaseConfigured() {
   return Boolean(
@@ -13,34 +31,39 @@ function isFirebaseConfigured() {
   );
 }
 
-function readLocalJobs() {
+function readStoredJobs() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed;
-    }
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(isJobRecord) : [];
   } catch {
-    /* ignore */
+    return [];
   }
-  const seeded = seedJobs.map((j) => ({ ...j }));
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
-  return seeded;
+}
+
+function cacheJobs(jobs) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
+  } catch {
+    /* private mode / full storage */
+  }
 }
 
 function notifyAll(jobs) {
+  const sorted = sortJobs(jobs);
   listeners.forEach((fn) => {
     try {
-      fn(jobs);
+      fn(sorted);
     } catch {
       /* ignore subscriber errors */
     }
   });
 }
 
-function writeLocalJobs(jobs) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
-  notifyAll(jobs);
+function fallbackJobs() {
+  const stored = readStoredJobs();
+  return stored.length > 0 ? sortJobs(stored) : sortJobs(seedJobs.map((job) => ({ ...job })));
 }
 
 async function getFirestoreApi() {
@@ -51,19 +74,119 @@ async function getFirestoreApi() {
   return { collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, db };
 }
 
+async function fetchSharedJobs() {
+  const response = await fetch(`${JOBS_API_URL}?t=${Date.now()}`, {
+    cache: 'no-store',
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(12000),
+  });
+  if (!response.ok) {
+    throw new Error('Could not load jobs');
+  }
+  const data = await response.json();
+  if (!data || !Array.isArray(data.jobs)) {
+    throw new Error('Jobs list was unreadable');
+  }
+  return sortJobs(data.jobs.filter(isJobRecord));
+}
+
+async function saveSharedJobs(jobs) {
+  const response = await fetch(JOBS_API_URL, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ jobs: sortJobs(jobs) }),
+    signal: AbortSignal.timeout(12000),
+  });
+  if (!response.ok) {
+    throw new Error('Could not publish jobs');
+  }
+  const data = await response.json().catch(() => null);
+  const saved = data && Array.isArray(data.jobs) ? sortJobs(data.jobs.filter(isJobRecord)) : sortJobs(jobs);
+  cacheJobs(saved);
+  notifyAll(saved);
+  return saved;
+}
+
+/** Push openings that exist only in this browser onto the public list, once. */
+async function publishUnsyncedLocal(remoteJobs) {
+  let alreadySynced = false;
+  try {
+    alreadySynced = localStorage.getItem(SYNCED_KEY) === '1';
+  } catch {
+    return remoteJobs;
+  }
+  if (alreadySynced) return remoteJobs;
+
+  const extras = mergeUnsyncedJobs(readStoredJobs(), remoteJobs, seedIds);
+  const changed = extras.length !== remoteJobs.length;
+  const saved = changed ? await saveSharedJobs(extras) : remoteJobs;
+  try {
+    localStorage.setItem(SYNCED_KEY, '1');
+  } catch {
+    /* ignore */
+  }
+  return saved;
+}
+
+function subscribeShared(onChange) {
+  let cancelled = false;
+
+  let refreshing = false;
+
+  const refresh = async () => {
+    if (refreshing) return;
+    refreshing = true;
+    try {
+      const jobs = await enqueue(async () => {
+        const remote = await fetchSharedJobs();
+        return publishUnsyncedLocal(remote);
+      });
+      if (cancelled) return;
+      cacheJobs(jobs);
+      notifyAll(jobs);
+    } catch {
+      if (!cancelled) onChange(fallbackJobs());
+    } finally {
+      refreshing = false;
+    }
+  };
+
+  refresh();
+
+  const onVisible = () => {
+    if (document.visibilityState === 'visible') refresh();
+  };
+  const onStorage = (event) => {
+    if (event.key === STORAGE_KEY) onChange(fallbackJobs());
+  };
+  document.addEventListener('visibilitychange', onVisible);
+  window.addEventListener('storage', onStorage);
+  const timer = window.setInterval(() => {
+    if (document.visibilityState === 'visible') refresh();
+  }, 20000);
+
+  return () => {
+    cancelled = true;
+    listeners.delete(onChange);
+    document.removeEventListener('visibilitychange', onVisible);
+    window.removeEventListener('storage', onStorage);
+    window.clearInterval(timer);
+  };
+}
+
 /** Subscribe to jobs. Returns unsubscribe fn. */
 export function subscribeJobs(onChange) {
   listeners.add(onChange);
 
   if (!isFirebaseConfigured()) {
-    onChange(readLocalJobs());
-    const onStorage = (e) => {
-      if (e.key === STORAGE_KEY || e.key === null) onChange(readLocalJobs());
-    };
-    window.addEventListener('storage', onStorage);
+    onChange(fallbackJobs());
+    const stop = subscribeShared(onChange);
     return () => {
       listeners.delete(onChange);
-      window.removeEventListener('storage', onStorage);
+      stop();
     };
   }
 
@@ -73,7 +196,7 @@ export function subscribeJobs(onChange) {
   getFirestoreApi()
     .then(({ collection, onSnapshot, query, orderBy, db }) => {
       if (cancelled || !db) {
-        onChange(readLocalJobs());
+        onChange(fallbackJobs());
         return;
       }
       const q = query(collection(db, 'jobs'), orderBy('createdAt', 'desc'));
@@ -83,10 +206,10 @@ export function subscribeJobs(onChange) {
           const jobs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
           notifyAll(jobs);
         },
-        () => onChange(readLocalJobs())
+        () => onChange(fallbackJobs())
       );
     })
-    .catch(() => onChange(readLocalJobs()));
+    .catch(() => onChange(fallbackJobs()));
 
   return () => {
     cancelled = true;
@@ -95,8 +218,8 @@ export function subscribeJobs(onChange) {
   };
 }
 
-export async function addJob(job) {
-  const payload = {
+function jobPayload(job) {
+  return {
     title: job.title.trim(),
     trade: job.trade,
     country: job.country,
@@ -108,6 +231,10 @@ export async function addJob(job) {
     active: true,
     createdAt: Date.now(),
   };
+}
+
+export async function addJob(job) {
+  const payload = jobPayload(job);
 
   if (isFirebaseConfigured()) {
     try {
@@ -117,13 +244,21 @@ export async function addJob(job) {
         return { id: ref.id, ...payload };
       }
     } catch {
-      /* fall through to local */
+      /* use the shared list */
     }
   }
 
-  const next = { id: `job-${Date.now()}`, ...payload };
-  writeLocalJobs([next, ...readLocalJobs()]);
-  return next;
+  const created = { id: `job-${Date.now()}`, ...payload };
+  await enqueue(async () => {
+    const current = await fetchSharedJobs();
+    await saveSharedJobs([created, ...current.filter((item) => item.id !== created.id)]);
+  });
+  try {
+    localStorage.setItem(SYNCED_KEY, '1');
+  } catch {
+    /* ignore */
+  }
+  return created;
 }
 
 export async function removeJob(id) {
@@ -135,10 +270,14 @@ export async function removeJob(id) {
         return;
       }
     } catch {
-      /* fall through */
+      /* use the shared list */
     }
   }
-  writeLocalJobs(readLocalJobs().filter((j) => j.id !== id));
+
+  await enqueue(async () => {
+    const current = await fetchSharedJobs();
+    await saveSharedJobs(current.filter((job) => job.id !== id));
+  });
 }
 
 export async function setJobActive(id, active) {
@@ -150,12 +289,14 @@ export async function setJobActive(id, active) {
         return;
       }
     } catch {
-      /* fall through */
+      /* use the shared list */
     }
   }
-  writeLocalJobs(
-    readLocalJobs().map((j) => (j.id === id ? { ...j, active } : j))
-  );
+
+  await enqueue(async () => {
+    const current = await fetchSharedJobs();
+    await saveSharedJobs(current.map((job) => (job.id === id ? { ...job, active } : job)));
+  });
 }
 
 export function getEmployerPassword() {
